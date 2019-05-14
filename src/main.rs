@@ -10,16 +10,38 @@ fn main() {
         process::exit(0);
     }
 
-    println!("You gave me '{:?}'", args);
-    //println!("parse input");
+    let addrs = &args[1..];
+    //let mut results = [];
+
+    // let results = for a in addrs.iter() {
+    //     pinger::ping(a);
+    // };
+
+    // this is driving me nuts
+    //http://xion.io/post/code/rust-iter-patterns.html
+
+    let results: &[bool] = addrs
+        .iter()
+        .filter_map(|x| pinger::ping(x) == true)
+        .collect();
+
+
+    println!("Res: {:?}", results);
+    
+
     //println!("print results");
-    let addr =  &args[1];
-    let res = pinger::ping(addr);
-    println!("Ping result: {:#?}", res);
+    
+    // do a ping
+    //let addr =  &args[1];
+    //let res = pinger::ping(addr);
+    //println!("Ping result: {:#?}", res);
 }
 
 
 
 fn help() {
-    println!("This is help");
+    println!("Usage:");
+    println!("\twanping 1.1.1.1");
+    println!("\twanping reddit.com");
+    println!("\twanping 1.1.1.1 8.8.8.8 reddit.com");
 }
