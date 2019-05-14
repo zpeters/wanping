@@ -7,7 +7,7 @@ pub mod pinger {
 
         let output = if cfg!(windows) {
             Command::new("cmd")
-            .args(&["/C", "ping -n 1", ip])
+            .args(&["/C", "ping -n 1 -w 1000", ip])
             .output()
             .expect("Unable to ping")
             .stdout
@@ -22,7 +22,7 @@ pub mod pinger {
         if cfg!(windows) {
             match str::from_utf8(&output) {
                 Ok(result) => {
-                    if result.contains(" 0.0% packet loss") {
+                    if result.contains("(0% loss)") {
                         return true
                     } else {
                         return false
