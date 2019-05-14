@@ -11,30 +11,23 @@ fn main() {
     }
 
     let addrs = &args[1..];
-    //let mut results = [];
+    let mut results = Vec::new();
 
-    // let results = for a in addrs.iter() {
-    //     pinger::ping(a);
-    // };
+    for e in addrs {
+        results.push(pinger::ping(e))
+    }
 
-    // this is driving me nuts
-    //http://xion.io/post/code/rust-iter-patterns.html
+    let all_up = results.iter().all(|&x| x == true);
+    let all_down = results.iter().all(|&x| x == false);
 
-    let results: &[bool] = addrs
-        .iter()
-        .filter_map(|x| pinger::ping(x) == true)
-        .collect();
+    if all_up {
+        println!("All up")
+    } else if all_down {
+        println!("All down")
+    } else {
+        println!("Some down")
+    }
 
-
-    println!("Res: {:?}", results);
-    
-
-    //println!("print results");
-    
-    // do a ping
-    //let addr =  &args[1];
-    //let res = pinger::ping(addr);
-    //println!("Ping result: {:#?}", res);
 }
 
 

@@ -25,8 +25,8 @@ pub mod pinger {
                         return true
                     } else {
                         println!("Ping {} failed", ip);
-                        return false
-                   }
+                        return false 
+                    }
                 },
                 Err(_) => {
                     println!("Ping {} failed", ip);
