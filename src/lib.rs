@@ -1,24 +1,46 @@
 pub mod pinger {
-    use std::error::Error;
     use std::process::Command;
+    use std::str;
 
-    pub fn ping(ip: &str) -> Result<(), Box<Error>> {
+    pub fn ping(ip: &str) -> bool {
         println!("Ping from lib {}", ip);
-        let output = Command::new("cmd")
+
+        let output = if cfg!(windows) {
+            Command::new("cmd")
             .args(&["/C", "ping -n 1", ip])
-            .output()?;
-
-        // String::from_utf8(output.stdout)?
-        //     .lines()
-        //     .filter(|s| s.contains("(0% loss)"))
-        //     .for_each(|x| println!("{:?}", x));
+            .output()
+            .expect("Unable to ping")
+            .stdout
+        } else {
+            Command::new("ping")
+            .args(&["-c 1", "-t 1", ip])
+            .output()
+            .expect("Unable to ping")
+            .stdout
+        };
         
-        let res = String::from_utf8(output.stdout)?
-            .lines()
-            .filter(|s| s.contains("(0% loss)"));
-
-        println!("Result: {:#?}", res);
-
-        Ok(())
+        if cfg!(windows) {
+            match str::from_utf8(&output) {
+                Ok(result) => {
+                    if result.contains(" 0.0% packet loss") {
+                        return true
+                    } else {
+                        return false
+                   }
+                },
+                Err(_) => return false,
+            }
+        } else {
+            match str::from_utf8(&output) {
+                Ok(result) => {
+                    if result.contains(" 0.0% packet loss") {
+                        return true
+                    } else {
+                        return false
+                    }
+                },
+                Err(_) => return false,
+            }
+        }
     }
 }
