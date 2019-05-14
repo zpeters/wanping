@@ -21,11 +21,11 @@ fn main() {
     let all_down = results.iter().all(|&x| x == false);
 
     if all_up {
-        println!("All up")
+        println!("OK: All up")
     } else if all_down {
-        println!("All down")
+        println!("ERR: All down")
     } else {
-        println!("Some down")
+        println!("WARN: Some down")
     }
 
 }
