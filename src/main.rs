@@ -3,6 +3,8 @@ use std::process;
 
 use wanping::pinger;
 
+const VERSION: &str = "v0.0.1";
+
 fn main() {
     let args: Vec<_> = env::args().collect();
     if args.len() <= 1 {
@@ -30,9 +32,8 @@ fn main() {
 
 }
 
-
-
 fn help() {
+    println!("wanping - {} - Zach Peters", VERSION);
     println!("Usage:");
     println!("\twanping 1.1.1.1");
     println!("\twanping reddit.com");
