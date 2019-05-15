@@ -19,8 +19,8 @@ fn main() {
         results.push(pinger::ping(e))
     }
 
-    let all_up = results.iter().all(|&x| x == true);
-    let all_down = results.iter().all(|&x| x == false);
+    let all_up = results.iter().all(|&x| x);
+    let all_down = results.iter().all(|&x| !x);
 
     if all_up {
         println!("ALLUP: All ips are up")
@@ -29,7 +29,6 @@ fn main() {
     } else {
         println!("SOMEDOWN: Some ips are down")
     }
-
 }
 
 fn help() {
