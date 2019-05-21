@@ -78,3 +78,44 @@ pub mod pinger {
         }
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_ping_good_internal() {
+        assert_eq!(pinger::ping("127.0.0.1"), true);
+    }
+    
+    #[test]
+    fn test_ping_good_external() {
+        assert_eq!(pinger::ping("1.1.1.1"), true);
+    }
+
+      #[test]
+    fn test_ping_good_internal_dns() {
+        assert_eq!(pinger::ping("localhost"), true);
+    }
+
+      #[test]
+    fn test_ping_good_external_dns() {
+        assert_eq!(pinger::ping("google.com"), true);
+    }
+    
+    #[test]
+    fn test_ping_bad_ip() {
+        assert_eq!(pinger::ping("55.55.55.55"), false);
+    }
+
+    #[test]
+    fn test_ping_bad_dns() {
+        assert_eq!(pinger::ping("this.is.a.fake"), false);
+    }
+
+    #[test]
+    fn test_ping_bad_garbage() {
+        assert_eq!(pinger::ping("fdskafjdsjf dajfdkjk;adsjf;dls"), false);
+    }
+
+}
