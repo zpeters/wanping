@@ -29,7 +29,7 @@ pub mod pinger {
 
         let output = if cfg!(windows) {
             Command::new("cmd")
-                .args(&["/C", "ping -n 1 -w 1000", ip])
+                .args(&["/C", "ping -n 1 -w 4000", ip])
                 .output()
                 .expect("Unable to ping")
                 .stdout
