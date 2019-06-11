@@ -1,26 +1,46 @@
-use std::env;
-use std::process;
+extern crate clap;
+
+use clap::{App, AppSettings, Arg};
 
 use wanping::pinger;
 
-const VERSION: &str = "v0.0.1";
-
 fn main() {
-    let args: Vec<_> = env::args().collect();
-    if args.len() <= 1 {
-        help();
-        process::exit(0);
+    let matches = App::new("Wan Ping")
+        .version("0.1.2")
+        .author("Zach Peters")
+        .about("Ping multiple ip addresses")
+        .setting(AppSettings::ArgRequiredElseHelp)
+        .arg(
+            Arg::with_name("timeout")
+                .short("t")
+                .long("timeout")
+                .value_name("TIMEOUT")
+                .default_value("4000")
+                .help("Sets the ping timeout")
+                .takes_value(true),
+        )
+        .arg(
+            Arg::with_name("servers")
+                .value_name("SERVERS_TO_PING")
+                .help("Servers to ping")
+                .index(1)
+                .required(true)
+                .multiple(true),
+        )
+        .get_matches();
+
+    if matches.is_present("servers") {
+        let servers = matches.values_of("servers").unwrap().collect::<Vec<_>>();
+        let timeout = matches.value_of("timeout").unwrap();
+        let addrs = &servers[0..];
+        let mut pings = Vec::new();
+
+        for e in addrs {
+            pings.push(pinger::ping(e, timeout))
+        }
+
+        println!("{}", results(pings))
     }
-
-    let addrs = &args[1..];
-    let mut pings = Vec::new();
-
-    for e in addrs {
-        pings.push(pinger::ping(e))
-    }
-
-    println!("{}", results(pings))
-   
 }
 
 fn results(pings: Vec<bool>) -> String {
@@ -34,14 +54,6 @@ fn results(pings: Vec<bool>) -> String {
     } else {
         "SOMEDOWN: Some ips are down".to_string()
     }
-}
-
-fn help() {
-    println!("wanping - {} - Zach Peters", VERSION);
-    println!("Usage:");
-    println!("\twanping 1.1.1.1");
-    println!("\twanping reddit.com");
-    println!("\twanping 1.1.1.1 8.8.8.8 reddit.com");
 }
 
 #[cfg(test)]
@@ -64,7 +76,7 @@ mod tests {
         pings.push(true);
         assert_eq!(results(pings), "ALLUP: All ips are up");
     }
-  
+
     #[test]
     fn test_some_down() {
         let mut pings = Vec::new();
@@ -73,7 +85,7 @@ mod tests {
         assert_eq!(results(pings), "SOMEDOWN: Some ips are down");
     }
 
-     #[test]
+    #[test]
     fn test_some_down_multiple() {
         let mut pings = Vec::new();
         pings.push(true);
@@ -112,6 +124,5 @@ mod tests {
         pings.push(false);
         assert_eq!(results(pings), "ALLDOWN: All ips are down");
     }
-  
 
 }

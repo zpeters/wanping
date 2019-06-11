@@ -24,12 +24,12 @@ pub mod pinger {
         Ok(())
     }
 
-    pub fn ping(ip: &str) -> bool {
+    pub fn ping(ip: &str, timeout: &str) -> bool {
         let _ = setup_logger();
 
         let output = if cfg!(windows) {
             Command::new("cmd")
-                .args(&["/C", "ping -n 1 -w 4000", ip])
+                .args(&["/C", "ping -n 1 -w", timeout, ip])
                 .output()
                 .expect("Unable to ping")
                 .stdout
@@ -85,37 +85,52 @@ mod tests {
 
     #[test]
     fn test_ping_good_internal() {
-        assert_eq!(pinger::ping("127.0.0.1"), true);
+        let timeout = "4000";
+        assert_eq!(pinger::ping("127.0.0.1", timeout), true);
     }
-    
+
     #[test]
     fn test_ping_good_external() {
-        assert_eq!(pinger::ping("1.1.1.1"), true);
+        let timeout = "4000";
+
+        assert_eq!(pinger::ping("1.1.1.1", timeout), true);
     }
 
-      #[test]
+    #[test]
     fn test_ping_good_internal_dns() {
-        assert_eq!(pinger::ping("localhost"), true);
+        let timeout = "4000";
+
+        assert_eq!(pinger::ping("localhost", timeout), true);
     }
 
-      #[test]
+    #[test]
     fn test_ping_good_external_dns() {
-        assert_eq!(pinger::ping("google.com"), true);
+        let timeout = "4000";
+
+        assert_eq!(pinger::ping("google.com", timeout), true);
     }
-    
+
     #[test]
     fn test_ping_bad_ip() {
-        assert_eq!(pinger::ping("55.55.55.55"), false);
+        let timeout = "4000";
+
+        assert_eq!(pinger::ping("55.55.55.55", timeout), false);
     }
 
     #[test]
     fn test_ping_bad_dns() {
-        assert_eq!(pinger::ping("this.is.a.fake"), false);
+        let timeout = "4000";
+
+        assert_eq!(pinger::ping("this.is.a.fake", timeout), false);
     }
 
     #[test]
     fn test_ping_bad_garbage() {
-        assert_eq!(pinger::ping("fdskafjdsjf dajfdkjk;adsjf;dls"), false);
-    }
+        let timeout = "4000";
 
+        assert_eq!(
+            pinger::ping("fdskafjdsjf dajfdkjk;adsjf;dls", timeout),
+            false
+        );
+    }
 }
