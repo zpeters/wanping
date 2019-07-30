@@ -6,7 +6,7 @@ use wanping::pinger;
 
 fn main() {
     let matches = App::new("Wan Ping")
-        .version("0.1.2")
+        .version("0.1.3")
         .author("Zach Peters")
         .about("Ping multiple ip addresses")
         .setting(AppSettings::ArgRequiredElseHelp)
