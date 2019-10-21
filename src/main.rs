@@ -15,7 +15,7 @@ fn main() {
                 .short("t")
                 .long("timeout")
                 .value_name("TIMEOUT")
-                .default_value("4000")
+                .default_value("100")
                 .help("Sets the ping timeout")
                 .takes_value(true),
         )

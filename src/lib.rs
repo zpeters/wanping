@@ -35,7 +35,7 @@ pub mod pinger {
                 .stdout
         } else {
             Command::new("ping")
-                .args(&["-c 1", "-t 1", ip])
+                .args(&["-c 1", "-t", timeout, ip])
                 .output()
                 .expect("Unable to ping")
                 .stdout
