@@ -10,7 +10,7 @@ variables:
     
 before_script:
     - apt-get update -yq
-    - apt-get install -o dir::cache::archives="$APT_CACHE_DIR" -y iputils-ping
+    #- apt-get install -o dir::cache::archives="$APT_CACHE_DIR" -y {{ FILES }}
     - apt upgrade -y
     
 test:
@@ -18,4 +18,4 @@ test:
     script:
         - rustc --version
         - cargo --version
-        - cargo test --verbose
+        - RUST_BACKTRACE=1 cargo test --verbose
