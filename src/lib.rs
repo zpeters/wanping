@@ -64,6 +64,9 @@ pub mod pinger {
                     if result.contains(" 0.0% packet loss") {
                         debug!("Ping {} success", ip);
                         true
+                    } else if result.contains(" 0% packet loss")  {
+                        debug!("Ping {} success", ip);
+                        true
                     } else {
                         warn!("Ping {} failed", ip);
                         false
