@@ -88,48 +88,48 @@ mod tests {
 
     #[test]
     fn test_ping_good_internal() {
-        let timeout = "4000";
+        let timeout = "100";
         assert_eq!(pinger::ping("127.0.0.1", timeout), true);
     }
 
     #[test]
     fn test_ping_good_external() {
-        let timeout = "4000";
+        let timeout = "100";
 
         assert_eq!(pinger::ping("1.1.1.1", timeout), true);
     }
 
     #[test]
     fn test_ping_good_internal_dns() {
-        let timeout = "4000";
+        let timeout = "100";
 
         assert_eq!(pinger::ping("localhost", timeout), true);
     }
 
     #[test]
     fn test_ping_good_external_dns() {
-        let timeout = "4000";
+        let timeout = "100";
 
         assert_eq!(pinger::ping("google.com", timeout), true);
     }
 
     #[test]
     fn test_ping_bad_ip() {
-        let timeout = "4000";
+        let timeout = "100";
 
         assert_eq!(pinger::ping("55.55.55.55", timeout), false);
     }
 
     #[test]
     fn test_ping_bad_dns() {
-        let timeout = "4000";
+        let timeout = "100";
 
         assert_eq!(pinger::ping("this.is.a.fake", timeout), false);
     }
 
     #[test]
     fn test_ping_bad_garbage() {
-        let timeout = "4000";
+        let timeout = "100";
 
         assert_eq!(
             pinger::ping("fdskafjdsjf dajfdkjk;adsjf;dls", timeout),
