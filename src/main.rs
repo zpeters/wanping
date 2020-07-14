@@ -124,5 +124,4 @@ mod tests {
         pings.push(false);
         assert_eq!(results(pings), "ALLDOWN: All ips are down");
     }
-
 }
