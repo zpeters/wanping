@@ -1,11 +1,11 @@
 [package]
 name = "wanping"
-version = "0.1.5"
+version = "0.1.6"
 authors = ["Zach Peters <zpeters@gmail.com>"]
 edition = "2018"
 
 [dependencies]
-log = "0.4.8"
-fern = "0.5.8"
-chrono = "0.4.7"
-clap = "2.33.0"
+log = "0.4.11"
+fern = "0.6.0"
+chrono = "0.4.13"
+clap = "2.33.1"
