@@ -1,5 +1,3 @@
-extern crate clap;
-
 use clap::{App, AppSettings, Arg};
 
 use wanping::pinger;
