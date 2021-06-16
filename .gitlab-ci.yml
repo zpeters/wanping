@@ -18,8 +18,4 @@ test:
     script:
         - rustc --version
         - cargo --version
-        - ping -c 1 -t 100 1.1.1.1
-        - ping -c 1 -t 100 google.com
-        - ping -c 1 -t 100 127.0.0.1
-        - ping -c 1 -t 100 localhost
         - cargo test --verbose
