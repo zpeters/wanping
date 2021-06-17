@@ -53,7 +53,7 @@ mod tests {
     fn test_ping_good_external() {
         let timeout = "100";
 
-        assert_eq!(pinger::ping("1.1.1.1", timeout), true);
+        assert_eq!(pinger::ping("8.8.8.8", timeout), true);
     }
 
     #[test]
