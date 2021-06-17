@@ -10,12 +10,9 @@ variables:
     
 before_script:
     - apt-get update -yq
-    #- apt-get install -o dir::cache::archives="$APT_CACHE_DIR" -y {{ FILES }}
     - apt upgrade -y
     
 test:
     stage: test
     script:
-        - rustc --version
-        - cargo --version
         - cargo test --verbose
