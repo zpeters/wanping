@@ -10,7 +10,7 @@ fn main() {
         .setting(AppSettings::ArgRequiredElseHelp)
         .arg(
             Arg::with_name("timeout")
-                .short("t")
+                .short('t')
                 .long("timeout")
                 .value_name("TIMEOUT")
                 .default_value("100")
