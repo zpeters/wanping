@@ -50,24 +50,10 @@ mod tests {
     }
 
     #[test]
-    fn test_ping_good_external() {
-        let timeout = "100";
-
-        assert_eq!(pinger::ping("1.1.1.1", timeout), true);
-    }
-
-    #[test]
     fn test_ping_good_internal_dns() {
         let timeout = "100";
 
         assert_eq!(pinger::ping("localhost", timeout), true);
-    }
-
-    #[test]
-    fn test_ping_good_external_dns() {
-        let timeout = "100";
-
-        assert_eq!(pinger::ping("reddit.com", timeout), true);
     }
 
     #[test]
