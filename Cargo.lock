@@ -46,9 +46,9 @@ dependencies = [
 
 [[package]]
 name = "clap"
-version = "3.2.15"
+version = "3.2.25"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "44bbe24bbd31a185bc2c4f7c2abe80bea13a20d57ee4e55be70ac512bdc76417"
+checksum = "4ea181bf566f71cb9a5d17a59e1871af638180a18fb0035c92ae62b705207123"
 dependencies = [
  "atty",
  "bitflags",
@@ -159,9 +159,9 @@ dependencies = [
 
 [[package]]
 name = "textwrap"
-version = "0.15.0"
+version = "0.16.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "b1141d4d61095b28419e22cb0bbf02755f5e54e0526f97f1e3d1d160e60885fb"
+checksum = "222a222a5bfe1bba4a77b45ec488a741b3cb8872e5e499451fd7d0129c9c7c3d"
 
 [[package]]
 name = "time"
